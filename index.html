@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FuturePath | Discover the Skills You Need for Tomorrow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#3B82F6;
+    --blue-dark:#1D4ED8;
+    --purple:#8B5CF6;
+    --purple-dark:#6D28D9;
+    --gradient: linear-gradient(135deg, var(--blue) 0%, #6D5EF0 50%, var(--purple) 100%);
+    --gradient-soft: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(124,58,237,0.08));
+    --ink:#E8EDFA;
+    --ink-soft:#A9B4D6;
+    --ink-onlight:#101B36;
+    --ink-soft-onlight:#4B5877;
+    --line:rgba(255,255,255,0.14);
+    --card:#FFFFFF;
+    --bg:#0A1330;
+    --bg-alt:#0F1B3D;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:12px;
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.28);
+    --shadow-lift: 0 20px 45px rgba(0,0,0,0.38);
+    --font-display:'Lora','Georgia',serif;
+    --font-body:'Inter','Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  section{padding:96px 24px;}
+  .wrap{max-width:1120px; margin:0 auto;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-body); font-weight:600; font-size:12.5px;
+    letter-spacing:0.14em; text-transform:uppercase; color:#D6C6FF;
+    background:rgba(139,92,246,0.20); border:1px solid rgba(139,92,246,0.35);
+    padding:8px 16px; border-radius:999px;
+    margin-bottom:18px;
+  }
+  h1,h2,h3,h4{font-family:var(--font-display); color:var(--ink); font-weight:700;}
+  h2.section-title{font-size:clamp(28px,4vw,40px); margin-bottom:14px; letter-spacing:-0.01em;}
+  p.section-sub{color:var(--ink-soft); font-size:17px; max-width:640px; margin-bottom:48px;}
+  .center{text-align:center; margin-left:auto; margin-right:auto;}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    font-family:var(--font-display); font-weight:600; font-size:15px;
+    padding:15px 30px; border-radius:999px; border:none; cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary{ background:var(--gradient); color:#fff; box-shadow:0 12px 28px rgba(99,73,226,0.35); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 16px 34px rgba(99,73,226,0.45); }
+  .btn-outline{ background:#fff; color:var(--blue-dark); border:1.5px solid #E2E8F5; }
+  .btn-outline:hover{ border-color:var(--blue); transform:translateY(-2px); box-shadow:var(--shadow-soft); }
+  .btn-ghost{ background:transparent; color:var(--ink-soft); font-weight:600; font-size:14px; padding:10px 18px; }
+  .btn-ghost:hover{ color:var(--blue-dark); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(10,19,48,0.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1120px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:800; font-size:19px; }
+  nav.links{ display:flex; gap:28px; align-items:center; }
+  nav.links a{ font-size:14.5px; font-weight:600; color:var(--ink-soft); transition:color .15s; }
+  nav.links a:hover{ color:var(--blue-dark); }
+  .nav-cta{ display:flex; gap:10px; }
+  .menu-toggle{ display:none; background:none; border:none; font-size:22px; cursor:pointer; color:var(--ink); }
+
+  @media (max-width:860px){
+    nav.links{
+      position:fixed; top:66px; left:0; right:0; background:#0A1330;
+      flex-direction:column; align-items:flex-start; gap:0; padding:8px 24px 20px;
+      border-bottom:1px solid var(--line); transform:translateY(-130%); opacity:0;
+      transition:transform .25s ease, opacity .25s ease; pointer-events:none;
+    }
+    nav.links.open{ transform:translateY(0); opacity:1; pointer-events:auto; }
+    nav.links a{ padding:12px 0; width:100%; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .nav-cta{ display:none; }
+    .menu-toggle{ display:block; }
+  }
+
+  /* HERO */
+  .hero{
+    padding:110px 24px 90px; position:relative; overflow:hidden;
+    background:
+      radial-gradient(600px 300px at 85% -10%, rgba(124,58,237,0.14), transparent 60%),
+      radial-gradient(500px 260px at 5% 0%, rgba(37,99,235,0.12), transparent 60%);
+  }
+  .hero-inner{ max-width:840px; margin:0 auto; text-align:center; }
+  .hero h1{
+    font-size:clamp(38px,6vw,64px); line-height:1.06; letter-spacing:-0.02em; margin-bottom:22px;
+  }
+  .hero h1 span{
+    background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p{ font-size:18px; color:var(--ink-soft); max-width:600px; margin:0 auto 38px; }
+  .hero-actions{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .hero-stats{
+    display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:64px;
+  }
+  .hero-stat{
+    background:#fff; border:1px solid #E6E9F2; border-radius:var(--radius-md);
+    padding:18px 26px; box-shadow:var(--shadow-soft); min-width:140px;
+    --ink:var(--ink-onlight); --ink-soft:var(--ink-soft-onlight); color:var(--ink);
+  }
+  .hero-stat b{ display:block; font-family:var(--font-display); font-size:22px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero-stat span{ font-size:13px; color:var(--ink-soft); }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+  }
+  .about-list{ display:grid; gap:16px; margin-top:8px; }
+  .about-item{
+    display:flex; gap:16px; align-items:flex-start; background:#fff;
+    border:1px solid #E6E9F2; border-radius:var(--radius-md); padding:18px 20px;
+    box-shadow:var(--shadow-soft);
+    --ink:var(--ink-onlight); --ink-soft:var(--ink-soft-onlight); color:var(--ink);
+  }
+  .about-icon{
+    flex-shrink:0; width:42px; height:42px; border-radius:12px; background:var(--gradient-soft);
+    display:flex; align-items:center; justify-content:center; font-size:19px;
+  }
+  .about-item h4{ font-size:16px; margin-bottom:4px; }
+  .about-item p{ font-size:14.5px; color:var(--ink-soft); margin:0; }
+  .about-visual{
+    background:var(--gradient); border-radius:var(--radius-lg); padding:44px 34px;
+    color:#fff; box-shadow:var(--shadow-lift); position:relative; overflow:hidden;
+  }
+  .about-visual::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(300px 200px at 90% 10%, rgba(255,255,255,0.18), transparent 60%);
+  }
+  .about-visual h3{ color:#fff; font-size:24px; margin-bottom:12px; position:relative; }
+  .about-visual p{ color:rgba(255,255,255,0.88); font-size:15px; position:relative; }
+  .about-quote{
+    margin-top:26px; padding-top:22px; border-top:1px solid rgba(255,255,255,0.25); position:relative;
+    font-style:italic; font-size:15px; color:rgba(255,255,255,0.92);
+  }
+
+  @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; } }
+
+  /* SKILLS */
+  .skills-bg{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .skill-tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .skill-tab{
+    font-family:var(--font-body); font-weight:600; font-size:14.5px;
+    padding:12px 20px; border-radius:999px; border:1.5px solid #E6E9F2;
+    background:#fff; cursor:pointer; color:var(--ink-soft-onlight); transition:all .18s;
+  }
+  .skill-tab.active{ background:var(--gradient); color:#fff; border-color:transparent; box-shadow:0 10px 24px rgba(99,73,226,0.3); }
+  .skill-panel{ display:none; }
+  .skill-panel.active{ display:block; animation:fadeIn .35s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  .skill-card{
+    background:var(--card); border:1px solid #E6E9F2; border-radius:var(--radius-lg);
+    padding:40px; box-shadow:var(--shadow-soft);
+    --ink:var(--ink-onlight); --ink-soft:var(--ink-soft-onlight);
+    --line:#E6E9F2; --bg:#EEF2FA; color:var(--ink);
+  }
+  .skill-head{ display:flex; align-items:center; gap:18px; margin-bottom:22px; flex-wrap:wrap; }
+  .skill-emoji{
+    width:56px; height:56px; border-radius:16px; background:var(--gradient-soft);
+    display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0;
+  }
+  .skill-head h3{ font-size:24px; }
+  .skill-columns{ display:grid; grid-template-columns:1.1fr 1fr; gap:36px; margin-top:8px; }
+  .skill-block h5{
+    font-family:var(--font-display); font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--purple-dark); margin-bottom:14px;
+  }
+  .topic-list{ display:grid; gap:10px; }
+  .topic-list li{
+    display:flex; align-items:center; gap:10px; font-size:15px; color:var(--ink);
+    background:var(--bg); border-radius:10px; padding:11px 14px;
+  }
+  .topic-list li::before{ content:"→"; color:var(--blue); font-weight:700; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{
+    font-size:13.5px; font-weight:600; padding:9px 15px; border-radius:999px;
+    background:var(--gradient-soft); color:var(--purple-dark);
+  }
+  @media (max-width:760px){ .skill-columns{ grid-template-columns:1fr; } }
+
+  /* SIMULATION */
+  .sim-card{
+    background:#fff; border:1px solid #E6E9F2; border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lift); padding:44px; max-width:720px; margin:0 auto;
+    --ink:var(--ink-onlight); --ink-soft:var(--ink-soft-onlight);
+    --line:#E6E9F2; --bg:#EEF2FA; color:var(--ink); text-align:center;
+  }
+  .sim-label{
+    font-family:var(--font-display); font-weight:600; font-size:17px; margin-bottom:20px; color:var(--ink);
+  }
+  .sim-frame-wrap{
+    display:flex; justify-content:center; margin-bottom:8px;
+  }
+  .sim-frame-wrap iframe{
+    border-radius:var(--radius-sm); box-shadow:var(--shadow-soft); max-width:100%;
+  }
+  .sim-desc{
+    text-align:left; margin-top:30px; padding-top:26px; border-top:1px solid var(--line);
+  }
+  .sim-desc h4{ font-size:15px; color:var(--purple-dark); margin-bottom:10px; letter-spacing:0.02em; }
+  .sim-desc p{ font-size:15px; color:var(--ink-soft); }
+
+  /* ROADMAP */
+  .roadmap-bg{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .roadmap-select{ margin-bottom:44px; }
+  .roadmap-select label{ display:block; font-size:13.5px; font-weight:600; color:var(--ink-soft); margin-bottom:10px; }
+  select#roadmapCareer{
+    font-family:var(--font-body); font-size:15.5px; padding:14px 18px; border-radius:999px;
+    border:1.5px solid var(--line); background:rgba(255,255,255,0.06); color:var(--ink); min-width:280px; cursor:pointer;
+  }
+  select#roadmapCareer option{ background:#0F1B3D; color:var(--ink); }
+  .roadmap-track{ position:relative; padding-left:34px; }
+  .roadmap-track::before{
+    content:""; position:absolute; left:11px; top:6px; bottom:6px; width:2px;
+    background:var(--line);
+  }
+  .roadmap-step{ position:relative; padding-bottom:34px; }
+  .roadmap-step:last-child{ padding-bottom:0; }
+  .roadmap-step::before{
+    content:""; position:absolute; left:-34px; top:2px; width:24px; height:24px; border-radius:50%;
+    background:var(--gradient); box-shadow:0 0 0 5px #E2E8F0, 0 0 0 6px var(--line);
+  }
+  .roadmap-step h4{ font-size:17px; margin-bottom:6px; }
+  .roadmap-step p{ color:var(--ink-soft); font-size:14.5px; max-width:600px; }
+
+  /* REFLECTION */
+  .reflect{
+    background:var(--ink); color:#E2E8F0; border-radius:var(--radius-lg);
+    padding:64px 48px; text-align:center; position:relative; overflow:hidden;
+  }
+  .reflect::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(500px 300px at 20% 0%, rgba(124,58,237,0.35), transparent 60%),
+               radial-gradient(500px 300px at 80% 100%, rgba(37,99,235,0.3), transparent 60%);
+  }
+  .reflect-inner{ position:relative; max-width:680px; margin:0 auto; }
+  .reflect h2{ color:#E2E8F0; font-size:clamp(26px,4vw,36px); margin-bottom:20px; }
+  .reflect p{ color:rgba(255,255,255,0.78); font-size:17px; margin-bottom:14px; }
+  .reflect .highlight{ color:#E2E8F0; font-weight:700; }
+  .reflect-actions{ margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+  /* FOOTER */
+  footer{ padding:40px 24px; text-align:center; color:var(--ink-soft); font-size:13.5px; }
+  footer .logo{ justify-content:center; margin-bottom:10px; }
+
+  .section-nav-tag{ font-size:13px; color:var(--ink-soft); text-align:center; margin-top:-8px; margin-bottom:36px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">FuturePath</div>
+    <nav class="links" id="navLinks">
+      <a href="#home" onclick="closeMenu()">Home</a>
+      <a href="#skills" onclick="closeMenu()">Future Skills</a>
+      <a href="#simulation" onclick="closeMenu()">Simulation</a>
+      <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
+      <a href="#reflection" onclick="closeMenu()">Reflection</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#skills" class="btn btn-outline" style="padding:11px 20px; font-size:14px;">Start Learning</a>
+      <a href="#simulation" class="btn btn-primary" style="padding:11px 20px; font-size:14px;">Try the Simulation</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+  </div>
+</header>
+
+<!-- HOME -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <h1>FuturePath<br><span>Discover the skills you need for tomorrow.</span></h1>
+    <p>Learn AI Literacy, Coding, Financial Literacy, and Critical Thinking — then try a hands-on simulation and explore the path that suits you best.</p>
+    <div class="hero-actions">
+      <a href="#skills" class="btn btn-primary">🚀 Start Learning</a>
+      <a href="#simulation" class="btn btn-outline">🎯 Try the Simulation</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>4</b><span>Future Skills</span></div>
+      <div class="hero-stat"><b>10</b><span>Careers Explored</span></div>
+      <div class="hero-stat"><b>1</b><span>Path That's Yours</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">About the Project</div>
+      <h2 class="section-title">Why FuturePath exists</h2>
+      <p class="section-sub" style="margin-bottom:24px;">The world is changing fast. FuturePath was built to help students build the skills and self-awareness to meet that change with confidence.</p>
+      <div class="about-list">
+        <div class="about-item">
+          <div class="about-icon">🎓</div>
+          <div><h4>Prepare for future careers</h4><p>Get ahead of a job market being reshaped by AI and automation.</p></div>
+        </div>
+        <div class="about-item">
+          <div class="about-icon">🧩</div>
+          <div><h4>Teach important life skills</h4><p>Build coding, financial, and critical thinking skills that matter in any field.</p></div>
+        </div>
+        <div class="about-item">
+          <div class="about-icon">🧭</div>
+          <div><h4>Help students explore careers</h4><p>Find real career paths that match your strengths and interests.</p></div>
+        </div>
+        <div class="about-item">
+          <div class="about-icon">✨</div>
+          <div><h4>Make learning interactive</h4><p>Simulations and roadmaps turn planning your future into something engaging.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <h3>One question drives everything</h3>
+      <p>What skills do students need today to succeed in the careers of tomorrow? FuturePath is our answer — a place to learn the fundamentals and see where they could take you.</p>
+      <div class="about-quote">"It's not just about picking a career — it's about opening doors."</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-bg" id="skills">
+  <div class="wrap">
+    <div class="eyebrow">Future Skills</div>
+    <h2 class="section-title">Four skills, one future-ready you</h2>
+    <p class="section-sub">Explore each skill area to see what it covers and where it shows up in everyday life.</p>
+
+    <div class="skill-tabs" id="skillTabs">
+      <button class="skill-tab active" data-tab="ai">🤖 AI Literacy</button>
+      <button class="skill-tab" data-tab="coding">💻 Coding</button>
+      <button class="skill-tab" data-tab="finance">💰 Financial Literacy</button>
+      <button class="skill-tab" data-tab="thinking">🧠 Critical Thinking</button>
+    </div>
+
+    <div class="skill-panel active" id="panel-ai">
+      <div class="skill-card">
+        <div class="skill-head"><div class="skill-emoji">🤖</div><h3>AI Literacy</h3></div>
+        <div class="skill-columns">
+          <div class="skill-block">
+            <h5>What you'll learn</h5>
+            <ul class="topic-list">
+              <li>What is AI?</li>
+              <li>How AI works</li>
+              <li>AI in everyday life</li>
+              <li>Benefits of AI</li>
+              <li>Risks of AI</li>
+              <li>Responsible AI use</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h5>You've already used it</h5>
+            <div class="chip-row">
+              <span class="chip">ChatGPT</span>
+              <span class="chip">Self-driving cars</span>
+              <span class="chip">Netflix recommendations</span>
+              <span class="chip">Voice assistants</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="panel-coding">
+      <div class="skill-card">
+        <div class="skill-head"><div class="skill-emoji">💻</div><h3>Coding</h3></div>
+        <div class="skill-columns">
+          <div class="skill-block">
+            <h5>What you'll learn</h5>
+            <ul class="topic-list">
+              <li>Why coding matters</li>
+              <li>Programming languages</li>
+              <li>Problem solving</li>
+              <li>Algorithms</li>
+              <li>Building apps &amp; games</li>
+              <li>Future careers in tech</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h5>Languages to know</h5>
+            <div class="chip-row">
+              <span class="chip">JavaScript</span>
+              <span class="chip">Python</span>
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="panel-finance">
+      <div class="skill-card">
+        <div class="skill-head"><div class="skill-emoji">💰</div><h3>Financial Literacy</h3></div>
+        <div class="skill-columns">
+          <div class="skill-block">
+            <h5>What you'll learn</h5>
+            <ul class="topic-list">
+              <li>Saving</li>
+              <li>Budgeting</li>
+              <li>Investing</li>
+              <li>Assets vs. liabilities</li>
+              <li>Compound interest</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h5>The big idea</h5>
+            <p style="font-size:14.5px; color:var(--ink-soft); background:var(--bg); padding:18px; border-radius:14px;">
+              Money you understand is money that works for you. Learning how saving, investing, and compound interest work early gives you options later — the goal isn't just earning, it's building something that grows on its own.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-panel" id="panel-thinking">
+      <div class="skill-card">
+        <div class="skill-head"><div class="skill-emoji">🧠</div><h3>Critical Thinking</h3></div>
+        <div class="skill-columns">
+          <div class="skill-block">
+            <h5>What you'll learn</h5>
+            <ul class="topic-list">
+              <li>Decision making</li>
+              <li>Evaluating evidence</li>
+              <li>Logical thinking</li>
+              <li>Solving problems</li>
+              <li>Avoiding misinformation</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h5>Why it matters</h5>
+            <p style="font-size:14.5px; color:var(--ink-soft); background:var(--bg); padding:18px; border-radius:14px;">
+              In a world full of information — and misinformation — knowing how to question, evaluate, and reason clearly is one of the most future-proof skills there is.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATION -->
+<section id="simulation">
+  <div class="wrap">
+    <div class="eyebrow center" style="display:flex; justify-content:center;">Simulation</div>
+    <h2 class="section-title center">See it in action</h2>
+    <p class="section-sub center">A hands-on simulation built to go along with FuturePath — try it out below.</p>
+
+    <div class="sim-card">
+      <div class="sim-label">Try out the simulation</div>
+      <div class="sim-frame-wrap">
+        <iframe id="simIframe" width="392" height="620" style="border: 0px;" src="https://studio.code.org/projects/applab/8499cffa-a0b7-41b6-aaf4-b54605ab472d/embed"></iframe>
+      </div>
+      <div class="sim-desc">
+        <h4>About this simulation</h4>
+        <p>This quiz will test your choices in day-to-day situations and give you a suitable career choice based on your decisions. It's your choice to stick to the given career path or not or explore other career paths below the quiz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap-bg" id="roadmap">
+  <div class="wrap">
+    <div class="eyebrow">Roadmap</div>
+    <h2 class="section-title">Your step-by-step path</h2>
+    <p class="section-sub">Pick any career to see how a student today could work toward it — from first steps to real-world experience.</p>
+
+    <div class="roadmap-select">
+      <label for="roadmapCareer">Choose a career</label>
+      <select id="roadmapCareer" onchange="renderRoadmap(this.value)"></select>
+    </div>
+
+    <div class="roadmap-track" id="roadmapTrack"></div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section id="reflection">
+  <div class="wrap">
+    <div class="reflect">
+      <div class="reflect-inner">
+        <div style="font-size:34px; margin-bottom:14px;">🌱</div>
+        <h2 style="color:#0F1B3D">It's not just about picking a career.</h2>
+        <p style="color:#0F1B3D">FuturePath isn't a test that boxes you into one future. It's a starting point.</p>
+        <p style="color:#0F1B3D">Learning <span class="highlight" style="color:#0F1B3D">coding</span>, <span class="highlight" style="color:#0F1B3D">AI literacy</span>, <span class="highlight" style="color:#0F1B3D">financial literacy</span>, and <span class="highlight" style="color:#0F1B3D">critical thinking</span> today doesn't just prepare you for one job — it opens up many opportunities, no matter which path you choose tomorrow.</p>
+        <div class="reflect-actions">
+          <a href="#skills" class="btn btn-primary" style="color:#0F1B3D">Keep Learning</a>
+          <a href="#simulation" class="btn btn-ghost" style="border:1.5px solid rgba(255,255,255,0.4); border-radius:999px;color:#0F1B3D" onclick="restartSimulation()">Try the Simulation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">FuturePath</div>
+  A Genius Hour Project — built to help students learn the skills of tomorrow, today.
+</footer>
+
+<script>
+/* ---------- NAV ---------- */
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+function closeMenu(){ navLinks.classList.remove('open'); }
+
+/* ---------- SIMULATION RESTART ---------- */
+function restartSimulation(){
+  const frame = document.getElementById('simIframe');
+  if (frame){ frame.src = frame.src; }
+}
+
+/* ---------- SKILL TABS ---------- */
+document.querySelectorAll('.skill-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.skill-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.skill-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* ---------- CAREER DATABASE ---------- */
+const careers = {
+  swe: {
+    name: "Software Engineer", emoji: "💻",
+    desc: "You like building things that work. Software Engineers design, build, and improve the apps, websites, and systems that power everyday life.",
+    skills: ["Coding", "Problem Solving", "Algorithms", "Critical Thinking"],
+    roadmap: [
+      ["Learn the basics", "Start with HTML, CSS, and a beginner-friendly language like Python or JavaScript."],
+      ["Build small projects", "Make simple apps, games, or websites to practice solving real problems."],
+      ["Study algorithms & data structures", "Learn how to write efficient, well-organized code."],
+      ["Join a coding community", "Collaborate on open-source projects or hackathons."],
+      ["Land an internship or first role", "Apply what you've learned on a real team, then keep building."]
+    ]
+  },
+  design: {
+    name: "Graphic Designer", emoji: "🎨",
+    desc: "You think in color, layout, and story. Graphic Designers turn ideas into visuals that communicate clearly and connect with people.",
+    skills: ["Creativity", "Visual Communication", "Critical Thinking", "Digital Tools"],
+    roadmap: [
+      ["Learn design fundamentals", "Study color theory, typography, and layout principles."],
+      ["Learn design software", "Get comfortable with tools like Canva, Figma, or Adobe products."],
+      ["Build a portfolio", "Create sample projects — logos, posters, websites — to showcase your style."],
+      ["Get feedback & iterate", "Share your work and refine it based on real critique."],
+      ["Freelance or intern", "Take on small real-world projects to build experience."]
+    ]
+  },
+  data: {
+    name: "Data Scientist", emoji: "📊",
+    desc: "You like finding patterns in numbers. Data Scientists use data and AI to uncover insights and help organizations make smarter decisions.",
+    skills: ["AI Literacy", "Coding", "Critical Thinking", "Statistics"],
+    roadmap: [
+      ["Build a coding foundation", "Learn Python, especially libraries used for data analysis."],
+      ["Learn statistics & math basics", "Understand probability, averages, and how to interpret data."],
+      ["Explore AI & machine learning", "Learn how models find patterns and make predictions."],
+      ["Work with real datasets", "Practice cleaning, analyzing, and visualizing real data."],
+      ["Share your findings", "Build small data projects and explain what they reveal."]
+    ]
+  },
+  cyber: {
+    name: "Cybersecurity Specialist", emoji: "🛡️",
+    desc: "You like protecting systems and thinking like both attacker and defender. Cybersecurity Specialists keep data and networks safe.",
+    skills: ["Critical Thinking", "Coding", "AI Literacy", "Problem Solving"],
+    roadmap: [
+      ["Learn how networks & systems work", "Understand the basics of how computers communicate."],
+      ["Study common threats", "Learn about phishing, malware, and other everyday risks."],
+      ["Practice safe & responsible AI/tech use", "Understand privacy, ethics, and digital responsibility."],
+      ["Try beginner security challenges", "Explore student-friendly cybersecurity exercises."],
+      ["Pursue certifications or coursework", "Build toward recognized cybersecurity credentials."]
+    ]
+  },
+  ai: {
+    name: "AI Engineer", emoji: "🤖",
+    desc: "You're fascinated by how machines learn. AI Engineers design and build the systems behind tools like chatbots, recommendations, and automation.",
+    skills: ["AI Literacy", "Coding", "Critical Thinking", "Math"],
+    roadmap: [
+      ["Understand what AI really is", "Learn how AI works, and its benefits and risks."],
+      ["Strengthen your coding skills", "Focus on Python, the most common AI language."],
+      ["Learn the fundamentals of machine learning", "Study how models are trained on data."],
+      ["Build a simple AI project", "Try a beginner-friendly project like a chatbot or predictor."],
+      ["Explore responsible AI", "Learn how to build and use AI ethically and safely."]
+    ]
+  },
+  teacher: {
+    name: "Teacher", emoji: "📚",
+    desc: "You like helping others grow. Teachers shape how future generations learn — including the very future-ready skills FuturePath teaches.",
+    skills: ["Communication", "Critical Thinking", "Patience", "Subject Expertise"],
+    roadmap: [
+      ["Discover your subject passion", "Notice which subjects you enjoy explaining to others."],
+      ["Practice explaining ideas clearly", "Tutor a friend or sibling to build communication skills."],
+      ["Learn how people learn", "Explore basics of how students absorb and retain information."],
+      ["Gain classroom experience", "Volunteer, mentor, or assist in a learning environment."],
+      ["Pursue a teaching pathway", "Look into education programs or certifications."]
+    ]
+  },
+  doctor: {
+    name: "Doctor", emoji: "🩺",
+    desc: "You want to help people and solve complex problems under pressure. Doctors diagnose, treat, and care for people's health.",
+    skills: ["Critical Thinking", "Science", "Communication", "Decision Making"],
+    roadmap: [
+      ["Build a strong science foundation", "Focus on biology, chemistry, and health-related subjects."],
+      ["Develop critical thinking under pressure", "Practice making careful decisions with incomplete information."],
+      ["Gain exposure to healthcare", "Volunteer or shadow in a healthcare setting if possible."],
+      ["Plan your academic path", "Research the schooling and requirements involved."],
+      ["Keep building empathy & communication", "Great doctors listen as well as they diagnose."]
+    ]
+  },
+  entrepreneur: {
+    name: "Entrepreneur", emoji: "🚀",
+    desc: "You see problems as opportunities. Entrepreneurs build businesses and ideas from the ground up, taking risks to create something new.",
+    skills: ["Financial Literacy", "Critical Thinking", "Communication", "Persistence"],
+    roadmap: [
+      ["Learn financial literacy basics", "Understand budgeting, saving, and how money grows."],
+      ["Practice spotting problems worth solving", "Notice everyday frustrations that could become ideas."],
+      ["Start small", "Try a small project, club, or side idea to practice execution."],
+      ["Learn from failure fast", "Treat setbacks as data, not dead ends."],
+      ["Study real founders & businesses", "Learn how ideas actually became companies."]
+    ]
+  },
+  analyst: {
+    name: "Business Analyst", emoji: "📈",
+    desc: "You like connecting the dots between data and decisions. Business Analysts help organizations use information to work smarter.",
+    skills: ["Critical Thinking", "Financial Literacy", "Coding", "Communication"],
+    roadmap: [
+      ["Build core money & business literacy", "Understand budgeting, spreadsheets, and basic finance."],
+      ["Learn to read and interpret data", "Practice pulling insights out of numbers and charts."],
+      ["Pick up light coding or spreadsheet skills", "Excel, or beginner Python, goes a long way."],
+      ["Practice clear communication", "Analysts need to explain findings simply to others."],
+      ["Explore real business case studies", "See how data-driven decisions play out in practice."]
+    ]
+  },
+  robotics: {
+    name: "Robotics Engineer", emoji: "⚙️",
+    desc: "You like building things that move and think. Robotics Engineers combine coding, engineering, and AI to create intelligent machines.",
+    skills: ["Coding", "AI Literacy", "Problem Solving", "Critical Thinking"],
+    roadmap: [
+      ["Learn coding fundamentals", "Python and beginner robotics languages are a great start."],
+      ["Understand basic engineering concepts", "Explore how sensors, motors, and circuits work together."],
+      ["Study how AI powers robotics", "Learn how robots use data to make decisions."],
+      ["Build a beginner robotics project", "Try a starter kit or school robotics club."],
+      ["Join a robotics team or competition", "Apply your skills in a hands-on, collaborative setting."]
+    ]
+  }
+};
+
+/* ---------- ROADMAP ---------- */
+function populateRoadmapSelect(){
+  const select = document.getElementById('roadmapCareer');
+  Object.keys(careers).forEach(key => {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = careers[key].emoji + ' ' + careers[key].name;
+    select.appendChild(opt);
+  });
+  select.value = 'swe';
+}
+
+function renderRoadmap(key){
+  const c = careers[key];
+  const track = document.getElementById('roadmapTrack');
+  track.innerHTML = '';
+  c.roadmap.forEach(step => {
+    const div = document.createElement('div');
+    div.className = 'roadmap-step';
+    div.innerHTML = `<h4>${step[0]}</h4><p>${step[1]}</p>`;
+    track.appendChild(div);
+  });
+}
+
+populateRoadmapSelect();
+renderRoadmap('swe');
+</script>
+
+</body>
+</html>
